@@ -8,13 +8,15 @@ public class Main {
     public static void main(String[] args) {
 
         try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
-            MongoDatabase db = mongoClient.getDatabase("acorn");
+            System.out.println("Connection successful");
 
-            MongoCollection<Document> collection = db.getCollection("users");
+
+
+
         }
         finally
         {
-            System.out.println("Failed to connect to database");
+            System.out.println("Error 502: Bad Gateway");
         }
     }
 }
