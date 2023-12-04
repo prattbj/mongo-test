@@ -72,15 +72,9 @@ public class Main {
             // Create things to update
             Document query = new Document().append("first_name",  "Tyson");
 
-            // Read
-            try {
-                // Prints document for user to read
-                read(collection, query);
-            }catch (MongoException meToo)
-            {
-                //Error message for user
-                System.err.println("Unable to connect: " + meToo);
-            }
+
+
+
 
             Bson updates = Updates.combine(
                     Updates.set("last_name", "Nipges-Mergel"),
@@ -89,6 +83,11 @@ public class Main {
             UpdateOptions options = new UpdateOptions().upsert(true);
 
             update(collection, query, updates, options);
+
+            // Read
+
+            Document toRead = new Document("first_name", "Tyson");
+            read(collection, toRead);
 
             //Create document to delete
             Document toDelete = new Document("first_name", "Tyson");
@@ -135,15 +134,14 @@ public class Main {
     {
         try {
             // To make sure it is the document I want to pull for this test
-            Bson filter = Filters.and(Filters.gt("qty", 10), Filters.lt("qty", 5));
+
             // Prints out document for the user to read
-            FindIterable<Document> docs = collection.find(query);
-            for(Document doc: docs) {
-                System.out.println("The document: " + doc);
-            }
+            Document doc = collection.find(query).first();
+            System.out.println("Document found: " + doc);
+
         } catch (MongoException meToo) {
             // Gives a warning message for user if print fails
-            System.err.println("Unable to print for user to read: " + meToo);
+            System.err.println("Unable to find documents: " + meToo);
         }
     }
 
