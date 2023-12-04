@@ -1,10 +1,7 @@
 package org.example;
 
 import com.mongodb.*;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
@@ -111,8 +108,10 @@ public class Main {
             // To make sure it is the document I want to pull for this test
             Bson filter = Filters.and(Filters.gt("qty", 10), Filters.lt("qty", 5));
             // Prints out document for the user to read
-            System.out.println("The document: " + collection.find(filter));
-            //System.out.println("The document: " + collection.find(query));
+            FindIterable<Document> docs = collection.find(query);
+            for(Document doc: docs) {
+                System.out.println("The document: " + doc);
+            }
         } catch (MongoException meToo) {
             // Gives a warning message for user if print fails
             System.err.println("Unable to print for user to read: " + meToo);
