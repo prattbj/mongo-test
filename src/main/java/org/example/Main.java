@@ -69,7 +69,7 @@ public class Main {
                     .append("messengers", Arrays.asList("Type", "discord", "Link"));
 
             insert(collection, toInsert);
-
+            
             // Create things to update
             Document query = new Document().append("first_name",  "Tyson");
             Document badquery = new Document().append("first_name",  "Tyson");
@@ -98,7 +98,8 @@ public class Main {
             Document toDelete = new Document("first_name", "Tyson");
 
             delete(collection, toDelete);
-
+            //reinsert for proof
+            insert(collection, toInsert);
 
         } catch(MongoException me)
         {
