@@ -57,6 +57,9 @@ public class Main {
 
             // Create things to update
             Document query = new Document().append("first_name",  "Tyson");
+
+            read(collection, query);
+
             Bson updates = Updates.combine(
                     Updates.set("last_name", "Nipges-Mergel"),
                     Updates.addToSet("Bio", "Here to have fun"),
