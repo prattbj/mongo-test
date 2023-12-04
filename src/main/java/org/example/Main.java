@@ -5,6 +5,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.InsertOneResult;
@@ -58,7 +59,15 @@ public class Main {
             // Create things to update
             Document query = new Document().append("first_name",  "Tyson");
 
-            read(collection, query);
+            // Read
+            try {
+                // Prints document for user to read
+                read(collection, query);
+            }catch (MongoException meToo)
+            {
+                //Error message for user
+                System.err.println("Unable to connect: " + meToo);
+            }
 
             Bson updates = Updates.combine(
                     Updates.set("last_name", "Nipges-Mergel"),
@@ -99,11 +108,14 @@ public class Main {
     public static void read(MongoCollection<Document> collection, Document query)
     {
         try {
+            // To make sure it is the document I want to pull for this test
+            Bson filter = Filters.and(Filters.gt("qty", 10), Filters.lt("qty", 5));
             // Prints out document for the user to read
-            System.out.println("The document: " + query);
-        } catch (MongoException me) {
+            System.out.println("The document: " + collection.find(filter));
+            //System.out.println("The document: " + collection.find(query));
+        } catch (MongoException meToo) {
             // Gives a warning message for user if print fails
-            System.err.println("Unable to print for user to read: " + me);
+            System.err.println("Unable to print for user to read: " + meToo);
         }
     }
 
