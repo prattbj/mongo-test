@@ -2,7 +2,6 @@ package org.example;
 
 import com.mongodb.*;
 import com.mongodb.client.*;
-import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.InsertOneResult;
@@ -15,7 +14,7 @@ import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 /* Project: 
- *  Authors: Benjamin Prat, Mckennah Palmer, Tyson Nipges-Mergel, Nicolas Almeida, Dane Selch
+ *  Authors: Benjamin Pratt, Mckennah Palmer, Tyson Nipges-Mergel, Nicolas Almeida, Dane Selch
  *  Class: CSE 490 Sepcial topics
  *  Teacher: Brother Clements
  *  Description: This is our Demo, used for the purpose of showing our ability to connect to a
@@ -139,9 +138,7 @@ public class Main {
     public static void read(MongoCollection<Document> collection, Document query)
     {
         try {
-            // To make sure it is the document I want to pull for this test
-
-            // Prints out document for the user to read
+            // Prints out the first document for the user to read
             Document doc = collection.find(query).first();
             if (doc == null)
             {
