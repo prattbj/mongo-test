@@ -72,7 +72,7 @@ public class Main {
             
             // Create things to update
             Document query = new Document().append("first_name",  "Tyson");
-            Document badquery = new Document().append("first_name",  "Tyson");
+            Document badquery = new Document().append("first_name",  "Dane");
             // Read
             try {
                 // Prints document for user to read
