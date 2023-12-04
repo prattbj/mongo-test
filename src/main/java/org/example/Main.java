@@ -92,6 +92,18 @@ public class Main {
         }
     }
 
+    //Read the Document or Print
+    public static void read(MongoCollection<Document> collection, Document query)
+    {
+        try {
+            // Prints out document for the user to read
+            System.out.println("The document: " + query);
+        } catch (MongoException me) {
+            // Gives a warning message for user if print fails
+            System.err.println("Unable to print for user to read: " + me);
+        }
+    }
+
     //Update a document
     public static void update(MongoCollection<Document> collection, Document query, Bson updates, UpdateOptions options)
     {
