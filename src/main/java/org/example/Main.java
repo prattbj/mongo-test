@@ -14,9 +14,25 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
+/* Project: 
+ *  Authors: Benjamin Prat, Mckennah Palmer, Tyson Nipges-Mergel, Nicolas Almeida, Dane Selch
+ *  Class: CSE 490 Sepcial topics
+ *  Teacher: Brother Clements
+ *  Description: This is our Demo, used for the purpose of showing our ability to connect to a
+ *      mongodb local server, and then follow the CRUD method to create and a database on said
+ *      server.
+ */
+
 import java.util.Arrays;
 
 public class Main {
+    /* Function: main
+     *  Inpits: N/A
+     *  Descripion: main is the runner function. It will begin by connecting to the 
+     *      local Mongodb server. upon failing it will output an error message. Upon 
+     *      success, the function will procede to create the needed objects to call and
+     *      run all the; insert(), read(), update(), and delete() functions. 
+     */
     public static void main(String[] args) {
 
         String uri = "mongodb://localhost:27017";
@@ -85,7 +101,14 @@ public class Main {
             System.err.println("Unable to connect to database: " + me);
         }
     }
-    // Insert a document into a collection
+    
+    /* Function: insert
+     *  Input: MongoCollection<Document>, Document
+     *  Description:  Upon accessing a collection, This function will add the desired
+     *      document into the mongoDB collection. On completion, it will then print out
+     *      the results of the insertone() function to the System. On failure an error
+     *      message will instead be sent to the system. 
+     */
     public static void insert(MongoCollection<Document> collection, Document toInsert)
     {
         try {
@@ -101,7 +124,13 @@ public class Main {
         }
     }
 
-    //Read the Document or Print
+    /* Function: read
+     *  Input: MongoCollection<Document>, Document
+     *  Description: Upon being called, This function will search a
+     *      mongodb collection for a specific document. If found, the 
+     *      document will be printed to the System. In case the document
+     *      is not found, an error message will be printed instead.
+     */
     public static void read(MongoCollection<Document> collection, Document query)
     {
         try {
@@ -118,7 +147,12 @@ public class Main {
         }
     }
 
-    //Update a document
+    /* Function: update
+     *  Input: MongoCollection<Document>, Document, Bson, UpdateOptions
+     *  Description: This funciton will find a given document inside a mongodb collection
+     *      once found it will take and add the data in the Bson object to the document.
+     *      On a fail to, will send an error message to the system.
+     */ 
     public static void update(MongoCollection<Document> collection, Document query, Bson updates, UpdateOptions options)
     {
         try {
@@ -130,7 +164,13 @@ public class Main {
         }
     }
 
-    //Delete a document
+    /* Function: delete
+     *  Input: MongoCollection<Document>, Document
+     *   Description: This function will Seach a collection for the desired document
+     *      once found, it will remove the document with a message containting
+     *      the amount of deleted entries.  In the case of failure it will have
+     *      an error message 
+     */
     public static void delete(MongoCollection<Document> collection, Document toDelete)
     {
         //Note that no exception will be thrown if there isn't anything to delete.
