@@ -114,7 +114,7 @@ public class Main {
             System.out.println("Deleted document count: " + result.getDeletedCount());
 
         } catch (MongoException me){
-            System.err.println("Unable to delete item: " + me);
+            System.err.println("Unable to delete document: " + me);
         }
     }
 }
