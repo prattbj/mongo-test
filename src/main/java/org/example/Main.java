@@ -89,6 +89,12 @@ public class Main {
             Document toRead = new Document("first_name", "Tyson");
             read(collection, toRead);
 
+            // Attempt to read a bad query
+            Document badquery = new Document().append("first_name",  "Dane");
+
+            read(collection, badquery);
+
+
             //Create document to delete
             Document toDelete = new Document("first_name", "Tyson");
 
@@ -137,11 +143,18 @@ public class Main {
 
             // Prints out document for the user to read
             Document doc = collection.find(query).first();
+            if (doc == null)
+            {
+                throw (new Throwable("No documents found"));
+            }
             System.out.println("Document found: " + doc);
 
         } catch (MongoException meToo) {
             // Gives a warning message for user if print fails
             System.err.println("Unable to find documents: " + meToo);
+        } catch (Throwable throwable)
+        {
+            System.err.println(throwable.getMessage());
         }
     }
 
@@ -175,10 +188,17 @@ public class Main {
         try {
 
             DeleteResult result = collection.deleteOne(toDelete);
+            if (result.getDeletedCount() == 0)
+            {
+                throw (new Throwable("0 documents found for deletion."));
+            }
             System.out.println("Deleted document count: " + result.getDeletedCount());
 
         } catch (MongoException me){
             System.err.println("Unable to delete document: " + me);
+        } catch (Throwable throwable)
+        {
+            System.err.println(throwable.getMessage());
         }
     }
 }
