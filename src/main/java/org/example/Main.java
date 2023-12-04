@@ -13,6 +13,7 @@ import org.bson.BsonInt64;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
+import java.util.Scanner;
 
 /* Project: 
  *  Authors: Benjamin Prat, Mckennah Palmer, Tyson Nipges-Mergel, Nicolas Almeida, Dane Selch
@@ -71,7 +72,7 @@ public class Main {
 
             // Create things to update
             Document query = new Document().append("first_name",  "Tyson");
-
+            Document badquery = new Document().append("first_name",  "Tyson");
             // Read
             try {
                 // Prints document for user to read
@@ -81,6 +82,9 @@ public class Main {
                 //Error message for user
                 System.err.println("Unable to connect: " + meToo);
             }
+            // searching for non existing data
+            read(collection, badquery);
+
 
             Bson updates = Updates.combine(
                     Updates.set("last_name", "Nipges-Mergel"),
@@ -138,6 +142,7 @@ public class Main {
             Bson filter = Filters.and(Filters.gt("qty", 10), Filters.lt("qty", 5));
             // Prints out document for the user to read
             FindIterable<Document> docs = collection.find(query);
+            if(docs.first() == null){System.out.println("file " + query + " was not found");}
             for(Document doc: docs) {
                 System.out.println("The document: " + doc);
             }
@@ -178,7 +183,6 @@ public class Main {
 
             DeleteResult result = collection.deleteOne(toDelete);
             System.out.println("Deleted document count: " + result.getDeletedCount());
-
         } catch (MongoException me){
             System.err.println("Unable to delete document: " + me);
         }
